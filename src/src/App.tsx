@@ -18,7 +18,7 @@ import { useLocalStorage, useUndoRedo, useKeyboardShortcuts, type KeyboardShortc
 import { STORAGE_KEYS } from './constants';
 import { Toaster } from '../components/ui/sonner';
 import { toast } from 'sonner@2.0.3';
-import { Undo, Redo, Keyboard, Sparkles } from 'lucide-react';
+import { Undo, Redo, Keyboard } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 
@@ -28,7 +28,6 @@ export default function App() {
     []
   );
   
-  // Use undo/redo for current palette
   const {
     state: currentPalette,
     set: setCurrentPalette,
@@ -37,7 +36,7 @@ export default function App() {
     canUndo,
     canRedo,
   } = useUndoRedo<string[]>([]);
-  
+
   const [currentPaletteName, setCurrentPaletteName] = useState<string>('Current Palette');
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [selectedColorIndex, setSelectedColorIndex] = useState<number | null>(null);
