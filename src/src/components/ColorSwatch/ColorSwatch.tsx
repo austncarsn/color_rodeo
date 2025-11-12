@@ -17,12 +17,12 @@ export function ColorSwatch({ color, onRemove, showRemove = true, onClick, isSel
   };
 
   const handleClick = (e: React.MouseEvent) => {
-    // If there's an onClick handler, use it (for selection)
+    // Always copy to clipboard
+    handleCopy();
+    
+    // If there's an onClick handler, call it too (for selection)
     if (onClick) {
       onClick();
-    } else {
-      // Otherwise, copy to clipboard (original behavior)
-      handleCopy();
     }
   };
 
