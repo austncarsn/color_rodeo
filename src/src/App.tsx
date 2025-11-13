@@ -147,9 +147,9 @@ export default function App() {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
       <Toaster position="top-center" />
-      <div className="container mx-auto px-4 py-12 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-8 md:py-12 max-w-[1600px]">
         {/* Elevated container with border */}
-        <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-3xl shadow-2xl overflow-hidden">
+        <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden">
           {/* Modern gradient header with glassmorphism effect */}
           <div className="relative bg-gradient-to-br from-neutral-50 via-white to-neutral-100 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-800 border-b-2 border-neutral-200 dark:border-neutral-800">
             {/* Animated background pattern */}
@@ -161,68 +161,68 @@ export default function App() {
             {/* Subtle gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-neutral-100/50 dark:via-neutral-800/50 to-transparent" />
             
-            <div className="relative px-8 md:px-12 py-8">
+            <div className="relative px-4 sm:px-6 md:px-8 lg:px-12 py-6 sm:py-8">
               {/* Logo centered with Dark Mode Toggle on right */}
-              <div className="flex items-center justify-between mb-10">
-                <div className="flex-1" /> {/* Spacer */}
-                <div className="flex-shrink-0">
+              <div className="flex items-center justify-between mb-6 sm:mb-8 md:mb-10">
+                <div className="flex-1 min-w-0" /> {/* Spacer */}
+                <div className="flex-shrink-0 mx-2">
                   <Logo />
                 </div>
-                <div className="flex-1 flex justify-end">
+                <div className="flex-1 flex justify-end min-w-0">
                   <DarkModeToggle />
                 </div>
               </div>
               
               {/* Tagline with refined typography */}
-              <div className="text-center space-y-6">
-                <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto text-lg leading-relaxed">
+              <div className="text-center space-y-4 sm:space-y-6">
+                <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed px-4">
                   Professional color tools for designers and developers
                 </p>
                 
                 {/* Undo/Redo Controls with modern styling */}
-                <div className="flex items-center justify-center gap-2">
+                <div className="flex flex-wrap items-center justify-center gap-2">
                   <Button
                     onClick={undo}
                     disabled={!canUndo}
                     variant="outline"
                     size="sm"
-                    className="border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-50 transition-all duration-300 hover:scale-105 disabled:hover:scale-100 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm"
+                    className="min-h-[44px] min-w-[44px] border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-50 transition-all duration-300 hover:scale-105 disabled:hover:scale-100 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm"
                   >
-                    <Undo className="w-4 h-4 mr-1" />
-                    Undo
+                    <Undo className="w-4 h-4 sm:mr-1" />
+                    <span className="hidden sm:inline">Undo</span>
                   </Button>
                   <Button
                     onClick={redo}
                     disabled={!canRedo}
                     variant="outline"
                     size="sm"
-                    className="border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-50 transition-all duration-300 hover:scale-105 disabled:hover:scale-100 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm"
+                    className="min-h-[44px] min-w-[44px] border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-50 transition-all duration-300 hover:scale-105 disabled:hover:scale-100 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm"
                   >
-                    <Redo className="w-4 h-4 mr-1" />
-                    Redo
+                    <Redo className="w-4 h-4 sm:mr-1" />
+                    <span className="hidden sm:inline">Redo</span>
                   </Button>
                   <Button
                     onClick={() => setShowShortcuts(!showShortcuts)}
                     variant="outline"
                     size="sm"
-                    className="border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-50 transition-all duration-300 hover:scale-105 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm"
+                    className="min-h-[44px] min-w-[44px] border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-50 transition-all duration-300 hover:scale-105 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm"
                   >
-                    <Keyboard className="w-4 h-4 mr-1" />
-                    Shortcuts
+                    <Keyboard className="w-4 h-4 sm:mr-1" />
+                    <span className="hidden sm:inline">Shortcuts</span>
                   </Button>
                 </div>
                 
                 {/* Keyboard Shortcuts Help with refined design */}
                 {showShortcuts && (
-                  <div className="max-w-md mx-auto mt-4 p-6 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl rounded-2xl border-2 border-neutral-200 dark:border-neutral-800 text-left shadow-2xl animate-in fade-in slide-in-from-top-2 duration-300">
+                  <div className="max-w-md mx-auto mt-4 p-4 sm:p-6 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl rounded-xl sm:rounded-2xl border-2 border-neutral-200 dark:border-neutral-800 text-left shadow-2xl animate-in fade-in slide-in-from-top-2 duration-300">
                     <h3 className="text-sm mb-4 text-neutral-900 dark:text-neutral-50 tracking-wide">Keyboard Shortcuts</h3>
                     <div className="space-y-3 text-sm">
                       {shortcuts.map((shortcut, idx) => (
-                        <div key={idx} className="flex justify-between items-center group">
-                          <span className="text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-50 transition-colors">
+                        <div key={idx} className="flex justify-between items-center gap-4 group">
+                          <span className="text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-50 transition-colors text-xs sm:text-sm">
                             {shortcut.description}
                           </span>
-                          <code className="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg text-xs tracking-wider group-hover:border-neutral-900 dark:group-hover:border-neutral-50 transition-colors">
+                          <code className="px-2 sm:px-3 py-1 sm:py-1.5 bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg text-xs tracking-wider group-hover:border-neutral-900 dark:group-hover:border-neutral-50 transition-colors whitespace-nowrap">
                             {shortcut.ctrl && 'Ctrl+'}{shortcut.shift && 'Shift+'}{shortcut.key.toUpperCase()}
                           </code>
                         </div>
@@ -235,10 +235,10 @@ export default function App() {
           </div>
 
           {/* Main content */}
-          <div className="p-8 md:p-12">
-            <div className="grid lg:grid-cols-2 gap-8">
+          <div className="p-4 sm:p-6 md:p-8 lg:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
               {/* Left Column */}
-              <div className="space-y-8">
+              <div className="space-y-6 sm:space-y-8">
                 <PaletteManager
                   onSavePalette={handleSavePalette}
                   loadedColors={currentPalette}
@@ -248,11 +248,11 @@ export default function App() {
                 />
                 
                 <Tabs defaultValue="generate" className="w-full">
-                  <TabsList className="grid w-full grid-cols-4 bg-neutral-100 dark:bg-neutral-800">
-                    <TabsTrigger value="generate">Generate</TabsTrigger>
-                    <TabsTrigger value="harmony">Harmony</TabsTrigger>
-                    <TabsTrigger value="gradient">Gradient</TabsTrigger>
-                    <TabsTrigger value="scales">Scales</TabsTrigger>
+                  <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 bg-neutral-100 dark:bg-neutral-800 h-auto">
+                    <TabsTrigger value="generate" className="min-h-[44px] text-xs sm:text-sm">Generate</TabsTrigger>
+                    <TabsTrigger value="harmony" className="min-h-[44px] text-xs sm:text-sm">Harmony</TabsTrigger>
+                    <TabsTrigger value="gradient" className="min-h-[44px] text-xs sm:text-sm">Gradient</TabsTrigger>
+                    <TabsTrigger value="scales" className="min-h-[44px] text-xs sm:text-sm">Scales</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="generate" className="mt-4">
@@ -282,9 +282,9 @@ export default function App() {
                 </Tabs>
                 
                 <Tabs defaultValue="basic" className="w-full">
-                  <TabsList className="grid w-full grid-cols-2 bg-neutral-100 dark:bg-neutral-800">
-                    <TabsTrigger value="basic">Basic Export</TabsTrigger>
-                    <TabsTrigger value="advanced">Advanced Export</TabsTrigger>
+                  <TabsList className="grid w-full grid-cols-2 bg-neutral-100 dark:bg-neutral-800 h-auto">
+                    <TabsTrigger value="basic" className="min-h-[44px] text-xs sm:text-sm">Basic Export</TabsTrigger>
+                    <TabsTrigger value="advanced" className="min-h-[44px] text-xs sm:text-sm">Advanced Export</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="basic" className="mt-4">
@@ -301,7 +301,7 @@ export default function App() {
               </div>
               
               {/* Right Column */}
-              <div className="space-y-8">
+              <div className="space-y-6 sm:space-y-8">
                 <AccessibilityChecker colors={currentPalette} />
                 <PaletteUtilities 
                   colors={currentPalette}

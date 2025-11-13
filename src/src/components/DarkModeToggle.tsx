@@ -43,18 +43,18 @@ export function DarkModeToggle() {
       onClick={toggleDarkMode}
       variant="outline"
       size="sm"
-      className="border-neutral-200 dark:border-neutral-700"
+      className="min-h-[44px] min-w-[44px] border-neutral-200 dark:border-neutral-700"
       aria-label="Toggle dark mode"
     >
       {isDark ? (
         <>
-          <Sun className="w-4 h-4 mr-1" />
-          Light
+          <Sun className="w-4 h-4 sm:mr-1" />
+          <span className="hidden sm:inline">Light</span>
         </>
       ) : (
         <>
-          <Moon className="w-4 h-4 mr-1" />
-          Dark
+          <Moon className="w-4 h-4 sm:mr-1" />
+          <span className="hidden sm:inline">Dark</span>
         </>
       )}
     </Button>

@@ -89,7 +89,7 @@ export function PaletteManager({
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <div className="flex-1">
             <Input
               type="text"
@@ -97,23 +97,23 @@ export function PaletteManager({
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 focus:border-neutral-900 dark:focus:border-neutral-50 text-neutral-900 dark:text-neutral-50"
+              className="min-h-[44px] bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 focus:border-neutral-900 dark:focus:border-neutral-50 text-neutral-900 dark:text-neutral-50"
             />
           </div>
           <Button
             onClick={handleAddColor}
             disabled={!inputValue}
-            className="bg-neutral-900 dark:bg-neutral-50 text-neutral-50 dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200 shadow-lg"
+            className="min-h-[44px] bg-neutral-900 dark:bg-neutral-50 text-neutral-50 dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200 shadow-lg"
           >
-            <Plus className="w-4 h-4 mr-2" />
-            Add
+            <Plus className="w-4 h-4 sm:mr-2" />
+            <span className="hidden sm:inline">Add</span>
           </Button>
         </div>
 
         {colors.length > 0 && (
           <>
             <DndProvider backend={HTML5Backend}>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                 {colors.map((color, index) => (
                   <DraggableColorSwatch
                     key={`${color}-${index}`}
@@ -130,12 +130,12 @@ export function PaletteManager({
 
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="w-full bg-neutral-900 dark:bg-neutral-50 text-neutral-50 dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200 shadow-lg">
+                <Button className="w-full min-h-[44px] bg-neutral-900 dark:bg-neutral-50 text-neutral-50 dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200 shadow-lg">
                   <Save className="w-4 h-4 mr-2" />
                   Save Palette
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800">
+              <DialogContent className="bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 sm:max-w-[425px]">
                 <DialogHeader>
                   <DialogTitle className="text-neutral-900 dark:text-neutral-50">Save Palette</DialogTitle>
                   <DialogDescription className="text-neutral-600 dark:text-neutral-400">
