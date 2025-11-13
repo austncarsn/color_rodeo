@@ -41,20 +41,20 @@ export function DarkModeToggle() {
   return (
     <Button
       onClick={toggleDarkMode}
-      variant="outline"
+      variant="ghost"
       size="sm"
-      className="min-h-[44px] min-w-[44px] border-neutral-200 dark:border-neutral-700"
+      className="min-h-[44px] px-4 sm:px-5 bg-transparent hover:bg-white/[0.08] border-0 text-neutral-400 hover:text-neutral-200 transition-all duration-300"
       aria-label="Toggle dark mode"
     >
       {isDark ? (
         <>
-          <Sun className="w-4 h-4 sm:mr-1" />
-          <span className="hidden sm:inline">Light</span>
+          <Sun className="w-4 h-4 sm:mr-2" />
+          <span className="hidden sm:inline tracking-wide">Light</span>
         </>
       ) : (
         <>
-          <Moon className="w-4 h-4 sm:mr-1" />
-          <span className="hidden sm:inline">Dark</span>
+          <Moon className="w-4 h-4 sm:mr-2" />
+          <span className="hidden sm:inline tracking-wide">Dark</span>
         </>
       )}
     </Button>
