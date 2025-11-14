@@ -1,10 +1,12 @@
 @custom-variant dark (&:is(.dark *));
 
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 :root {
   --font-size: 16px;
   --font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: 'Bebas Neue', sans-serif;
   --background: #fafafa;
   --foreground: #0a0a0a;
   --card: #ffffff;
@@ -42,43 +44,56 @@
   --sidebar-accent-foreground: #0a0a0a;
   --sidebar-border: #e5e5e5;
   --sidebar-ring: #737373;
+  
+  /* New Professional Palette */
+  --saffron: #F2C46B;
+  --saffron-dark: #D4A855;
+  --graphite-bg: #151518;
+  --graphite-surface: #18191D;
+  --graphite-border: #292B33;
+  --graphite-hover: #23252B;
+  
+  /* Title Gradient Colors - AAA Compliant */
+  --title-gradient-from: #5e4633;
+  --title-gradient-mid: #51485e;
+  --title-gradient-to: #545064;
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #fafafa;
-  --card: #171717;
-  --card-foreground: #fafafa;
-  --popover: #171717;
-  --popover-foreground: #fafafa;
-  --primary: #fafafa;
-  --primary-foreground: #0a0a0a;
-  --secondary: #262626;
-  --secondary-foreground: #fafafa;
-  --muted: #262626;
-  --muted-foreground: #a3a3a3;
-  --accent: #262626;
-  --accent-foreground: #fafafa;
+  --background: #151518;
+  --foreground: #F5F5F7;
+  --card: #18191D;
+  --card-foreground: #F5F5F7;
+  --popover: #18191D;
+  --popover-foreground: #F5F5F7;
+  --primary: #F5F5F7;
+  --primary-foreground: #121212;
+  --secondary: #23252B;
+  --secondary-foreground: #F5F5F7;
+  --muted: #23252B;
+  --muted-foreground: #8C909A;
+  --accent: #F2C46B;
+  --accent-foreground: #121212;
   --destructive: #dc2626;
-  --destructive-foreground: #fafafa;
-  --border: #262626;
-  --input: #262626;
-  --ring: #525252;
+  --destructive-foreground: #F5F5F7;
+  --border: #292B33;
+  --input: #23252B;
+  --ring: #F2C46B;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --chart-1: #fafafa;
-  --chart-2: #d4d4d4;
-  --chart-3: #a3a3a3;
-  --chart-4: #737373;
-  --chart-5: #525252;
-  --sidebar: #171717;
-  --sidebar-foreground: #fafafa;
-  --sidebar-primary: #fafafa;
-  --sidebar-primary-foreground: #0a0a0a;
-  --sidebar-accent: #262626;
-  --sidebar-accent-foreground: #fafafa;
-  --sidebar-border: #262626;
-  --sidebar-ring: #525252;
+  --chart-1: #F5F5F7;
+  --chart-2: #C1C4CF;
+  --chart-3: #8C909A;
+  --chart-4: #5A5D66;
+  --chart-5: #292B33;
+  --sidebar: #18191D;
+  --sidebar-foreground: #F5F5F7;
+  --sidebar-primary: #F5F5F7;
+  --sidebar-primary-foreground: #121212;
+  --sidebar-accent: #23252B;
+  --sidebar-accent-foreground: #F5F5F7;
+  --sidebar-border: #292B33;
+  --sidebar-ring: #F2C46B;
 }
 
 @theme inline {
@@ -216,4 +231,14 @@
 
 html {
   font-size: var(--font-size);
+}
+
+/* Gradient animation for Color Rodeo title */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }

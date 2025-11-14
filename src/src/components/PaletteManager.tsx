@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Save, GripVertical } from 'lucide-react';
+import { Plus, Save, GripVertical, Palette } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card';
@@ -78,17 +78,17 @@ export function PaletteManager({
   };
 
   return (
-    <Card className="bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 shadow-xl">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-3 text-neutral-900 dark:text-neutral-50">
-          <div className="w-1 h-8 bg-neutral-900 dark:bg-neutral-50 rounded-full" />
+    <Card className="bg-white dark:bg-[#18191D] border-neutral-200 dark:border-[#292B33] shadow-lg">
+      <CardHeader className="space-y-1 px-4 sm:px-6 pt-4 sm:pt-6">
+        <CardTitle className="flex items-center gap-2 sm:gap-3 text-base sm:text-lg text-neutral-900 dark:text-[#F5F5F7]">
+          <div className="w-1 h-6 sm:h-8 bg-[#F2C46B] rounded-full" />
           Create Palette
         </CardTitle>
-        <CardDescription className="text-neutral-600 dark:text-neutral-400">
+        <CardDescription className="text-xs sm:text-sm text-neutral-600 dark:text-[#8C909A]">
           Add colors in hex, RGB, or HSL format. Drag to reorder.
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6 pb-4 sm:pb-6">
         <div className="flex flex-col sm:flex-row gap-2">
           <div className="flex-1">
             <Input
@@ -97,23 +97,23 @@ export function PaletteManager({
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="min-h-[44px] bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 focus:border-neutral-900 dark:focus:border-neutral-50 text-neutral-900 dark:text-neutral-50"
+              className="min-h-[48px] bg-neutral-50 dark:bg-[#1E1F23] border-neutral-200 dark:border-[#292B33] focus:border-[#F2C46B] dark:focus:border-[#F2C46B] text-neutral-900 dark:text-[#F5F5F7] placeholder:text-neutral-400 dark:placeholder:text-[#8C909A]"
             />
           </div>
           <Button
             onClick={handleAddColor}
             disabled={!inputValue}
-            className="min-h-[44px] bg-neutral-900 dark:bg-neutral-50 text-neutral-50 dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200 shadow-lg"
+            className="min-h-[48px] px-4 sm:px-6 bg-[#F2C46B] hover:bg-[#D4A855] text-[#121212] disabled:opacity-40 disabled:hover:bg-[#F2C46B] shadow-md"
           >
             <Plus className="w-4 h-4 sm:mr-2" />
-            <span className="hidden sm:inline">Add</span>
+            <span className="text-sm sm:text-base">Add Color</span>
           </Button>
         </div>
 
         {colors.length > 0 && (
           <>
             <DndProvider backend={HTML5Backend}>
-              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
                 {colors.map((color, index) => (
                   <DraggableColorSwatch
                     key={`${color}-${index}`}
@@ -130,52 +130,52 @@ export function PaletteManager({
 
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="w-full min-h-[44px] bg-neutral-900 dark:bg-neutral-50 text-neutral-50 dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200 shadow-lg">
+                <Button className="w-full min-h-[48px] bg-[#F2C46B] hover:bg-[#D4A855] text-[#121212] shadow-md">
                   <Save className="w-4 h-4 mr-2" />
-                  Save Palette
+                  <span className="text-sm sm:text-base">Save Palette</span>
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 sm:max-w-[425px]">
+              <DialogContent className="bg-white dark:bg-[#18191D] border-neutral-200 dark:border-[#292B33] sm:max-w-[425px] mx-3">
                 <DialogHeader>
-                  <DialogTitle className="text-neutral-900 dark:text-neutral-50">Save Palette</DialogTitle>
-                  <DialogDescription className="text-neutral-600 dark:text-neutral-400">
+                  <DialogTitle className="text-neutral-900 dark:text-[#F5F5F7]">Save Palette</DialogTitle>
+                  <DialogDescription className="text-neutral-600 dark:text-[#8C909A]">
                     Give your palette a name to save it for later use.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4 py-4">
                   <div className="space-y-2">
-                    <Label htmlFor="palette-name" className="text-neutral-900 dark:text-neutral-50">Palette Name</Label>
+                    <Label htmlFor="palette-name" className="text-neutral-900 dark:text-[#F5F5F7]">Palette Name</Label>
                     <Input
                       id="palette-name"
                       placeholder="My Awesome Palette"
                       value={paletteName}
                       onChange={(e) => setPaletteName(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && handleSave()}
-                      className="bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-neutral-50"
+                      className="bg-neutral-50 dark:bg-[#1E1F23] border-neutral-200 dark:border-[#292B33] text-neutral-900 dark:text-[#F5F5F7] min-h-[48px]"
                     />
                   </div>
-                  <div className="flex gap-3 flex-wrap p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700">
+                  <div className="flex gap-2 sm:gap-3 flex-wrap p-3 sm:p-4 bg-neutral-50 dark:bg-[#1E1F23] rounded-lg border border-neutral-200 dark:border-[#292B33]">
                     {colors.map((color, index) => (
                       <div
                         key={index}
-                        className="w-12 h-12 rounded-lg shadow-lg transition-transform hover:scale-110 border border-neutral-200 dark:border-neutral-700"
+                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg shadow-lg transition-transform hover:scale-110 border border-neutral-200 dark:border-[#292B33]"
                         style={{ backgroundColor: color }}
                       />
                     ))}
                   </div>
                 </div>
-                <DialogFooter>
+                <DialogFooter className="gap-2 sm:gap-0">
                   <Button
                     variant="outline"
                     onClick={() => setIsDialogOpen(false)}
-                    className="border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-neutral-50"
+                    className="min-h-[44px] border-neutral-200 dark:border-[#292B33] text-neutral-900 dark:text-[#F5F5F7] hover:bg-neutral-50 dark:hover:bg-[#23252B]"
                   >
                     Cancel
                   </Button>
                   <Button
                     onClick={handleSave}
                     disabled={!paletteName.trim()}
-                    className="bg-neutral-900 dark:bg-neutral-50 text-neutral-50 dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200"
+                    className="min-h-[44px] bg-[#F2C46B] hover:bg-[#D4A855] text-[#121212] disabled:opacity-40"
                   >
                     Save
                   </Button>
@@ -186,12 +186,12 @@ export function PaletteManager({
         )}
 
         {colors.length === 0 && (
-          <div className="text-center py-16 px-4 bg-neutral-50 dark:bg-neutral-800 rounded-xl border-2 border-dashed border-neutral-300 dark:border-neutral-700">
-            <div className="w-16 h-16 mx-auto mb-4 bg-neutral-200 dark:bg-neutral-700 rounded-2xl flex items-center justify-center">
-              <Plus className="w-8 h-8 text-neutral-600 dark:text-neutral-400" />
+          <div className="text-center py-10 sm:py-16 px-4 bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-[#1E1F23] dark:to-[#18191D] rounded-xl border-2 border-dashed border-neutral-300 dark:border-[#292B33] transition-all duration-300 hover:border-neutral-400 dark:hover:border-[#F2C46B]/30">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-[#23252B] dark:to-[#292B33] rounded-2xl flex items-center justify-center shadow-lg">
+              <Palette className="w-7 h-7 sm:w-8 sm:h-8 text-neutral-600 dark:text-[#8C909A]" />
             </div>
-            <p className="text-neutral-600 dark:text-neutral-400 mb-1">{UI_TEXT.EMPTY_PALETTE_MESSAGE}</p>
-            <p className="text-sm text-neutral-500 dark:text-neutral-500">{UI_TEXT.EMPTY_PALETTE_HINT}</p>
+            <p className="text-sm sm:text-base text-neutral-900 dark:text-[#C1C4CF] mb-2" style={{ fontWeight: 500 }}>{UI_TEXT.EMPTY_PALETTE_MESSAGE}</p>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-[#8C909A] max-w-xs mx-auto leading-relaxed">{UI_TEXT.EMPTY_PALETTE_HINT}</p>
           </div>
         )}
       </CardContent>

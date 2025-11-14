@@ -1,148 +1,301 @@
-# Color Rodeo
+# 🎨 Color Rodeo
 
-A professional color palette generator and manager with advanced tools for designers and developers. Features smart input parsing, automatic duplicate filtering, color harmony generation, accessibility checking, and comprehensive export options.
+**Professional color palette management tool for designers and developers**
 
-## Features
+A sophisticated web application for creating, managing, and analyzing color palettes with advanced features including accessibility checking, color harmonies, gradient generation, and comprehensive export options.
 
-### 🎨 Smart Color Input
-- Paste multiple hex codes at once (separated by commas, spaces, or other characters)
-- Automatic duplicate filtering and validation
-- Normalizes different hex formats (#RGB, #RRGGBB, with or without #)
-- Real-time palette generation and preview
-- Drag-and-drop color reordering
+![Color Rodeo](https://img.shields.io/badge/version-1.0.0-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.6.3-blue)
+![React](https://img.shields.io/badge/React-18.3.1-blue)
+![Vite](https://img.shields.io/badge/Vite-6.0.0-purple)
 
-### 📋 Copy to Clipboard
-- Click any color swatch to copy its hex code
-- Copy entire palettes with one click
-- Export palettes in multiple formats (JSON, CSS, SCSS, Tailwind)
-- Visual feedback for all clipboard operations
+---
 
-### 🎨 Advanced Color Tools
-- **Color Harmony**: Generate complementary, analogous, triadic, and tetradic color schemes
-- **Gradient Generator**: Create smooth color gradients from your palette
-- **Color Scales**: Generate tint and shade variations for each color
-- **Color Adjustment**: Fine-tune hue, saturation, lightness, and brightness
-- **Palette Utilities**: Sort, shuffle, reverse, and extract colors from palettes
+## ✨ Features
 
-### ♿ Accessibility Features
-- **WCAG Compliance Checking**: Verify text/background color contrast ratios
-- **Contrast Matrix**: View contrast ratios between all palette colors
-- **AA/AAA Level Indicators**: Clear visual indicators for accessibility standards
-- **Smart Suggestions**: Get recommendations for accessible color combinations
+### Core Functionality
+- **Multi-format Color Input**: Supports HEX, RGB, HSL formats with auto-normalization
+- **Paste Multiple Colors**: Batch paste hex codes with automatic duplicate filtering
+- **Drag & Drop Reordering**: Intuitive palette organization
+- **Live Color Preview**: Real-time color visualization with copy-to-clipboard
+- **Undo/Redo System**: Full history management for all palette operations
 
-### 💾 Storage & Management
-- Save unlimited palettes to localStorage
-- Name and organize your color schemes
-- Quick load and delete operations
-- Import/export palettes as JSON files
-- Undo/redo support for all palette operations
+### Generation Tools
+- **Palette Generator**: Create harmonious color schemes from base colors
+- **Color Harmonies**: Generate complementary, analogous, triadic, tetradic, and split-complementary schemes
+- **Gradient Generator**: Create smooth color gradients with customizable stops
+- **Color Scales**: Generate tint and shade variations (50-900 scales)
 
-### ⌨️ Keyboard Shortcuts
-- `Ctrl+S` - Save current palette
-- `Ctrl+Z` - Undo last action
-- `Ctrl+Y` - Redo last action
-- `Shift+?` - Show keyboard shortcuts
+### Analysis & Accessibility
+- **WCAG Compliance Checker**: Real-time contrast ratio analysis (AA/AAA)
+- **Contrast Matrix**: Complete contrast comparison between all palette colors
+- **Color Inspector**: Detailed color information (HEX, RGB, HSL, CMYK)
+- **Accessibility Scores**: Visual indicators for text readability
 
-### 🎯 Design & UX
-- Minimalist, sophisticated aesthetic
-- Monochromatic color scheme (#0a0a0a and #fafafa)
-- Satoshi font throughout
-- Fully responsive design
-- Dark mode support
-- Smooth animations and transitions
+### Export & Integration
+- **Multiple Export Formats**: 
+  - CSS Variables
+  - SCSS Variables
+  - Tailwind Config
+  - JSON
+  - JavaScript/TypeScript Objects
+- **Code Generation**: Ready-to-use code snippets
+- **Import/Export**: Save and share palettes as JSON
+- **localStorage Persistence**: Automatic palette saving
 
-## Getting Started
+### User Experience
+- **Dark/Light Mode**: Full theme support with smooth transitions
+- **Keyboard Shortcuts**: Efficient workflow navigation
+- **Responsive Design**: Optimized for all screen sizes
+- **Toast Notifications**: Rich feedback system
+- **Preset Palettes**: Quick-start templates for common use cases
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js >= 18.18
+- npm or yarn
 
 ### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/color-rodeo.git
+
+# Navigate to project directory
+cd color-rodeo
+
+# Install dependencies
 npm install
-```
 
-### Development
-
-```bash
+# Start development server
 npm run dev
 ```
 
-### Build
+The app will be available at `http://localhost:5173`
+
+### Build for Production
 
 ```bash
 npm run build
 ```
 
-### Preview Production Build
+The optimized build will be in the `dist/` directory.
 
-```bash
-npm run preview
+---
+
+## 🎯 Usage
+
+### Creating a Palette
+
+1. **Enter a Base Color**: Input a color in the hero section (HEX, RGB, or HSL)
+2. **Generate Palette**: Click "Generate Palette" or use a preset
+3. **Adjust Colors**: Click any color to open the color inspector
+4. **Reorder**: Drag and drop colors to reorganize
+5. **Save**: Name and save your palette for later use
+
+### Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl + S` | Save current palette |
+| `Ctrl + Z` | Undo last action |
+| `Ctrl + Y` | Redo last action |
+| `Shift + ?` | Toggle shortcuts help |
+| `Esc` | Close panels/dialogs |
+
+### Color Formats
+
+```javascript
+// HEX (with or without #)
+#FF5733
+FF5733
+
+// RGB
+rgb(255, 87, 51)
+
+// HSL
+hsl(10, 100%, 60%)
 ```
 
-## Technologies
+---
 
-- **React 18** - Modern UI framework
-- **TypeScript** - Type safety and better developer experience
-- **Tailwind CSS v4** - Utility-first CSS framework
-- **Vite** - Lightning-fast build tool
-- **shadcn/ui** - High-quality React components
-- **Lucide React** - Beautiful icon library
-- **Sonner** - Elegant toast notifications
+## 🏗️ Project Structure
 
-## Usage
+```
+color-rodeo/
+├── src/
+│   ├── components/          # React components
+│   │   ├── ui/             # Shadcn UI components
+│   │   ├── ColorSwatch/    # Color display components
+│   │   └── ...             # Feature components
+│   ├── hooks/              # Custom React hooks
+│   ├── lib/                # Utility functions
+│   │   ├── colorUtils.ts   # Color manipulation
+│   │   ├── colorHarmony.ts # Harmony algorithms
+│   │   └── ...
+│   ├── types/              # TypeScript type definitions
+│   ├── constants/          # App constants
+│   ├── styles/             # Global styles
+│   ├── App.tsx             # Main app component
+│   └── main.tsx            # App entry point
+├── public/                 # Static assets
+├── components/             # Root-level shared components
+├── docs/                   # Documentation
+└── package.json
+```
 
-### Basic Workflow
+---
 
-1. **Add Colors**: Paste hex codes into the input field
-   ```
-   #ff0000, #00ff00, #0000ff
-   ```
+## 🛠️ Technology Stack
 
-2. **Generate Palettes**: Use the palette generator to create random color schemes or explore color harmonies
+### Core
+- **React 18.3** - UI framework
+- **TypeScript 5.6** - Type safety
+- **Vite 6.0** - Build tool & dev server
 
-3. **Copy Colors**: Click any swatch to copy its hex code to clipboard
+### UI/Styling
+- **Tailwind CSS 4.0** - Utility-first CSS
+- **Shadcn/ui** - Component library
+- **Lucide React** - Icon system
+- **Sonner** - Toast notifications
 
-4. **Adjust Colors**: Select a color and use the adjustment panel to fine-tune it
+### Libraries
+- **chroma-js** - Color manipulation
+- **Motion (Framer Motion)** - Animations
+- **react-dnd** - Drag and drop
 
-5. **Check Accessibility**: View contrast ratios and WCAG compliance
+---
 
-6. **Save & Export**: Save palettes locally or export in various formats
+## 🎨 Design System
 
-### Advanced Features
+### Color Palette
+```css
+/* Light Mode */
+--background: #fafafa;
+--foreground: #0a0a0a;
+--accent: #F2C46B; /* Saffron */
 
-#### Color Harmony
-Generate color schemes based on color theory:
-- **Complementary**: Colors opposite on the color wheel
-- **Analogous**: Adjacent colors on the color wheel
-- **Triadic**: Three evenly-spaced colors
-- **Tetradic**: Four colors forming a rectangle
-- **Split-Complementary**: Base color plus two adjacent to its complement
+/* Dark Mode */
+--background: #151518; /* Graphite */
+--foreground: #F5F5F7;
+--accent: #F2C46B; /* Saffron */
+```
 
-#### Export Formats
-- **JSON**: Complete palette data
-- **CSS Variables**: Custom properties for CSS
-- **SCSS Variables**: Sass/SCSS format
-- **Tailwind Config**: Ready for tailwind.config.js
-- **CSS Color Array**: JavaScript array of color values
+### Typography
+- **Headings**: Bebas Neue (Display font)
+- **Body**: Satoshi (Professional sans-serif)
 
-#### Palette Utilities
-- **Sort**: By hue, saturation, or lightness
-- **Shuffle**: Randomize color order
-- **Reverse**: Flip palette order
-- **Extract**: Get dominant colors from images
+### Principles
+- **Minimalist Design**: Clean, uncluttered interface
+- **Professional Aesthetics**: Tool-focused, not playful
+- **Accessibility First**: WCAG AAA compliance targets
+- **Responsive**: Mobile-first approach
 
-## Color Format Support
+---
 
-The app supports various hex color formats:
-- **3-digit hex**: `#f00` or `f00`
-- **6-digit hex**: `#ff0000` or `ff0000`
-- **With or without #**: Both formats work seamlessly
+## 🔧 Configuration
 
-## Browser Support
+### Vite Config
+The project uses Vite with React plugin and TypeScript paths resolution.
 
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Modern mobile browsers
+### TypeScript
+Strict mode enabled with comprehensive type checking.
 
-## License
+### Tailwind
+Custom design tokens in `styles/globals.css`
 
-MIT
+---
+
+## 📚 API Reference
+
+### Core Components
+
+#### `PaletteManager`
+Manages the main color palette display and interactions.
+
+```tsx
+<PaletteManager
+  onSavePalette={(name, colors) => void}
+  loadedColors={string[]}
+  onColorsChange={(colors) => void}
+  selectedColorIndex={number | null}
+  onSelectColor={(index) => void}
+/>
+```
+
+#### `ColorInspector`
+Detailed color information drawer.
+
+```tsx
+<ColorInspector
+  color={string}
+  onClose={() => void}
+/>
+```
+
+### Utility Functions
+
+#### `generateColorHarmony`
+```typescript
+generateColorHarmony(
+  baseColor: string,
+  type: 'complementary' | 'analogous' | 'triadic' | 'tetradic' | 'split-complementary'
+): string[]
+```
+
+#### `checkContrast`
+```typescript
+checkContrast(
+  foreground: string,
+  background: string
+): {
+  ratio: number;
+  AA: boolean;
+  AAA: boolean;
+}
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+### Development Guidelines
+1. Follow existing code style and conventions
+2. Write meaningful commit messages
+3. Add tests for new features
+4. Update documentation as needed
+5. Ensure TypeScript types are properly defined
+
+---
+
+## 📄 License
+
+MIT License - feel free to use this project for personal or commercial purposes.
+
+---
+
+## 🙏 Acknowledgments
+
+- **Shadcn/ui** - Beautiful, accessible components
+- **Tailwind CSS** - Utility-first CSS framework
+- **Chroma.js** - Color manipulation library
+- **Vercel** - Hosting platform
+
+---
+
+## 📞 Support
+
+For issues, questions, or suggestions:
+- Open an issue on GitHub
+- Contact: [your-email@example.com]
+
+---
+
+**Built with ❤️ for designers and developers**
+
+*Color Rodeo - Where colors come to play professionally*

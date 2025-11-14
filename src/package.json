@@ -1,14 +1,34 @@
 {
   "name": "color-rodeo",
   "version": "1.0.0",
+  "description": "Professional color palette management tool for designers and developers",
   "type": "module",
+  "author": "Your Name",
+  "license": "MIT",
+  "keywords": [
+    "color",
+    "palette",
+    "design-tools",
+    "accessibility",
+    "wcag",
+    "color-harmony",
+    "gradient",
+    "react",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/color-rodeo.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit"
   },
   "engines": {
-    "node": ">=18.18"
+    "node": ">=18.18",
+    "npm": ">=9.0.0"
   },
   "dependencies": {
     "react": "^18.3.1",

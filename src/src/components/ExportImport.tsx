@@ -73,16 +73,16 @@ export function ExportImport({ palette, onImport }: ExportImportProps) {
   };
 
   return (
-    <Card className="p-6 bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800">
+    <Card className="p-4 sm:p-6 bg-white dark:bg-[#18191D] border-neutral-200 dark:border-[#292B33]">
       <div className="space-y-4">
         <div className="flex items-center gap-2">
-          <FileCode className="w-5 h-5 text-neutral-900 dark:text-neutral-50" />
-          <h3 className="text-neutral-900 dark:text-neutral-50">Export / Import</h3>
+          <FileCode className="w-4 h-4 sm:w-5 sm:h-5 text-[#F2C46B]" />
+          <h3 className="text-sm sm:text-base text-neutral-900 dark:text-[#F5F5F7]" style={{ fontWeight: 500 }}>Export / Import</h3>
         </div>
 
         <div className="space-y-3">
           <div className="space-y-2">
-            <Label htmlFor="export-format" className="text-neutral-700 dark:text-neutral-300">
+            <Label htmlFor="export-format" className="text-xs sm:text-sm text-neutral-700 dark:text-[#C1C4CF]">
               Export Format
             </Label>
             <Select
@@ -91,30 +91,30 @@ export function ExportImport({ palette, onImport }: ExportImportProps) {
             >
               <SelectTrigger
                 id="export-format"
-                className="bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700"
+                className="min-h-[44px] bg-neutral-50 dark:bg-[#1E1F23] border-neutral-200 dark:border-[#292B33] text-neutral-900 dark:text-[#F5F5F7]"
               >
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="json">
+              <SelectContent className="bg-white dark:bg-[#18191D] border-neutral-200 dark:border-[#292B33]">
+                <SelectItem value="json" className="text-neutral-900 dark:text-[#F5F5F7] hover:bg-neutral-50 dark:hover:bg-[#23252B]">
                   <div className="flex items-center gap-2">
                     <FileJson className="w-4 h-4" />
                     <span>JSON</span>
                   </div>
                 </SelectItem>
-                <SelectItem value="css">
+                <SelectItem value="css" className="text-neutral-900 dark:text-[#F5F5F7] hover:bg-neutral-50 dark:hover:bg-[#23252B]">
                   <div className="flex items-center gap-2">
                     <FileCode className="w-4 h-4" />
                     <span>CSS Variables</span>
                   </div>
                 </SelectItem>
-                <SelectItem value="scss">
+                <SelectItem value="scss" className="text-neutral-900 dark:text-[#F5F5F7] hover:bg-neutral-50 dark:hover:bg-[#23252B]">
                   <div className="flex items-center gap-2">
                     <FileCode className="w-4 h-4" />
                     <span>SCSS Variables</span>
                   </div>
                 </SelectItem>
-                <SelectItem value="tailwind">
+                <SelectItem value="tailwind" className="text-neutral-900 dark:text-[#F5F5F7] hover:bg-neutral-50 dark:hover:bg-[#23252B]">
                   <div className="flex items-center gap-2">
                     <FileCode className="w-4 h-4" />
                     <span>Tailwind Config</span>
@@ -129,19 +129,19 @@ export function ExportImport({ palette, onImport }: ExportImportProps) {
               onClick={handleExport}
               disabled={!palette || palette.colors.length === 0}
               variant="outline"
-              className="border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+              className="min-h-[44px] border-neutral-200 dark:border-[#292B33] hover:bg-neutral-100 dark:hover:bg-[#23252B] text-neutral-900 dark:text-[#F5F5F7] disabled:opacity-40"
             >
               <Download className="w-4 h-4 mr-2" />
-              Export
+              <span className="text-xs sm:text-sm">Export</span>
             </Button>
 
             <Button
               onClick={handleImportClick}
               variant="outline"
-              className="border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+              className="min-h-[44px] border-neutral-200 dark:border-[#292B33] hover:bg-neutral-100 dark:hover:bg-[#23252B] text-neutral-900 dark:text-[#F5F5F7]"
             >
               <Upload className="w-4 h-4 mr-2" />
-              Import JSON
+              <span className="text-xs sm:text-sm">Import JSON</span>
             </Button>
           </div>
 
@@ -153,7 +153,7 @@ export function ExportImport({ palette, onImport }: ExportImportProps) {
             className="hidden"
           />
 
-          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+          <p className="text-[10px] sm:text-xs text-neutral-500 dark:text-[#8C909A]">
             Import accepts JSON palette files. Export formats include JSON, CSS, SCSS, and Tailwind.
           </p>
         </div>

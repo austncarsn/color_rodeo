@@ -50,8 +50,8 @@ export function ColorSwatch({ color, onRemove, showRemove = true, onClick, isSel
       <div
         className={`h-24 sm:h-28 md:h-32 rounded-lg sm:rounded-xl border-2 ${
           isSelected 
-            ? 'border-neutral-900 dark:border-neutral-50 shadow-[0_0_0_3px_rgba(10,10,10,0.2)] dark:shadow-[0_0_0_3px_rgba(250,250,250,0.2)]' 
-            : 'border-neutral-200 dark:border-neutral-700'
+            ? 'border-[#F2C46B] shadow-[0_0_0_3px_rgba(242,196,107,0.3)]' 
+            : 'border-neutral-200 dark:border-[#292B33]'
         } cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl flex flex-col items-center justify-center overflow-hidden`}
         style={{ backgroundColor: color }}
         onClick={handleClick}
@@ -59,7 +59,7 @@ export function ColorSwatch({ color, onRemove, showRemove = true, onClick, isSel
         <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
         {showName && (
-          <div className={`relative z-10 text-xs sm:text-sm ${textColor} drop-shadow-lg tracking-wide mb-1 px-2 py-0.5 bg-black/20 rounded-full`}>
+          <div className={`relative z-10 text-xs sm:text-sm ${textColor} drop-shadow-lg tracking-wide mb-1 px-2 py-0.5 bg-black/20 backdrop-blur-sm rounded-full`}>
             {colorName}
           </div>
         )}
@@ -74,13 +74,13 @@ export function ColorSwatch({ color, onRemove, showRemove = true, onClick, isSel
             <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">Click to copy</span>
           )}
         </div>
-        <div className={`relative z-10 mt-1 ${textColor} drop-shadow-lg tracking-wider text-xs sm:text-sm`}>
+        <div className={`relative z-10 mt-1 ${textColor} drop-shadow-lg tracking-wider text-xs sm:text-sm`} style={{ fontWeight: 500 }}>
           {displayValue}
         </div>
         <div className="relative z-10 flex items-center gap-2 mt-1">
           <button
             onClick={cycleFormat}
-            className={`${textColor} opacity-0 group-hover:opacity-70 hover:opacity-100 transition-opacity duration-200 flex items-center gap-0.5 text-xs min-h-[32px] min-w-[32px] justify-center`}
+            className={`${textColor} opacity-0 group-hover:opacity-70 hover:opacity-100 transition-opacity duration-200 flex items-center gap-0.5 text-[10px] sm:text-xs min-h-[32px] min-w-[32px] justify-center`}
             aria-label="Cycle color format"
           >
             <span>{displayFormat.toUpperCase()}</span>
@@ -99,14 +99,14 @@ export function ColorSwatch({ color, onRemove, showRemove = true, onClick, isSel
         <Button
           variant="destructive"
           size="sm"
-          className="absolute -top-2 -right-2 h-8 w-8 sm:h-7 sm:w-7 p-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-xl scale-0 group-hover:scale-100"
+          className="absolute -top-2 -right-2 h-7 w-7 sm:h-8 sm:w-8 p-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-xl scale-0 group-hover:scale-100"
           onClick={(e) => {
             e.stopPropagation();
             onRemove();
           }}
           aria-label="Remove color"
         >
-          <X className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+          <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </Button>
       )}
     </div>

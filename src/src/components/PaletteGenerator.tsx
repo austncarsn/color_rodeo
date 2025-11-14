@@ -3,14 +3,6 @@ import { Button } from '../../components/ui/button';
 import { Card } from '../../components/ui/card';
 import { Label } from '../../components/ui/label';
 import { Input } from '../../components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../../components/ui/select';
 import {
   generateComplementary,
   generateAnalogous,
@@ -29,8 +21,8 @@ import {
   getPaletteStyleName,
   type PaletteStyle,
 } from '../lib/advancedGenerationUtils';
-import { Wand2, Palette, Sparkles, Image, TrendingUp } from 'lucide-react';
-import { toast } from 'sonner';
+import { Wand2, Sparkles, Image, Shuffle, ChevronRight } from 'lucide-react';
+import { toast } from 'sonner@2.0.3';
 
 interface PaletteGeneratorProps {
   onGenerate: (colors: string[]) => void;
@@ -46,77 +38,86 @@ type GenerationType =
   | 'shades'
   | 'tints';
 
-interface GenerationOption {
+interface QuickAction {
   type: GenerationType;
   label: string;
+  emoji: string;
   description: string;
 }
 
-const generationOptions: GenerationOption[] = [
+const quickActions: QuickAction[] = [
   {
     type: 'complementary',
     label: 'Complementary',
-    description: 'Opposite on color wheel',
+    emoji: '🔄',
+    description: 'Opposite colors for high contrast',
   },
   {
     type: 'analogous',
     label: 'Analogous',
-    description: 'Adjacent colors',
+    emoji: '🌈',
+    description: 'Harmonious adjacent colors',
+  },
+  {
+    type: 'monochromatic',
+    label: 'Monochrome',
+    emoji: '🎨',
+    description: 'Shades of one color',
   },
   {
     type: 'triadic',
     label: 'Triadic',
-    description: '120° apart',
+    emoji: '🔺',
+    description: 'Balanced 3-color harmony',
   },
+];
+
+const advancedActions: QuickAction[] = [
   {
     type: 'tetradic',
     label: 'Tetradic',
-    description: '90° square',
+    emoji: '⬜',
+    description: 'Rich 4-color square',
   },
   {
     type: 'splitComplementary',
-    label: 'Split Complementary',
-    description: 'Complementary variation',
-  },
-  {
-    type: 'monochromatic',
-    label: 'Monochromatic',
-    description: 'Single hue variations',
+    label: 'Split Comp.',
+    emoji: '✨',
+    description: 'Softer complementary',
   },
   {
     type: 'shades',
     label: 'Shades',
+    emoji: '🌑',
     description: 'Darker variations',
   },
   {
     type: 'tints',
     label: 'Tints',
+    emoji: '☀️',
     description: 'Lighter variations',
   },
 ];
 
-const paletteStyles: PaletteStyle[] = [
-  'vibrant',
-  'pastel',
-  'dark',
-  'light',
-  'neon',
-  'earth',
-  'ocean',
-  'sunset',
-  'forest',
-  'monochrome',
+const randomStyles: Array<{ style: PaletteStyle; name: string; emoji: string }> = [
+  { style: 'vibrant', name: 'Vibrant', emoji: '⚡' },
+  { style: 'pastel', name: 'Pastel', emoji: '🍭' },
+  { style: 'dark', name: 'Dark', emoji: '🌙' },
+  { style: 'neon', name: 'Neon', emoji: '💫' },
+  { style: 'earth', name: 'Earth', emoji: '🌿' },
+  { style: 'ocean', name: 'Ocean', emoji: '🌊' },
 ];
 
 export function PaletteGenerator({ onGenerate }: PaletteGeneratorProps) {
   const [baseColor, setBaseColor] = useState('#3B82F6');
   const [error, setError] = useState('');
-  const [randomStyle, setRandomStyle] = useState<PaletteStyle>('vibrant');
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleGenerate = (type: GenerationType) => {
     if (!isValidHex(baseColor)) {
       setError('Please enter a valid hex color');
+      toast.error('Invalid color format');
       return;
     }
 
@@ -151,17 +152,18 @@ export function PaletteGenerator({ onGenerate }: PaletteGeneratorProps) {
     }
 
     onGenerate(generatedColors);
+    toast.success(`Generated ${type} palette`);
   };
 
-  const handleRandomGenerate = () => {
-    const colors = generateRandomPalette(randomStyle, 5);
+  const handleRandomGenerate = (style: PaletteStyle) => {
+    const colors = generateRandomPalette(style, 5);
     onGenerate(colors);
-    toast.success(`Generated ${getPaletteStyleName(randomStyle)} palette`);
+    toast.success(`Generated ${getPaletteStyleName(style)} palette`);
   };
 
-  const handleTrendingPalette = (colors: string[]) => {
+  const handleTrendingPalette = (colors: string[], name: string) => {
     onGenerate(colors);
-    toast.success('Loaded trending palette');
+    toast.success(`Loaded ${name}`);
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -192,161 +194,255 @@ export function PaletteGenerator({ onGenerate }: PaletteGeneratorProps) {
   };
 
   return (
-    <Card className="p-6 bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800">
-      <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <Wand2 className="w-5 h-5 text-neutral-900 dark:text-neutral-50" />
-          <h3 className="text-neutral-900 dark:text-neutral-50">Generate Palette</h3>
+    <Card className="p-6 bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 shadow-xl">
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/20 border border-amber-500/30 flex items-center justify-center">
+            <Wand2 className="w-5 h-5 text-amber-500" />
+          </div>
+          <div>
+            <h3 className="text-neutral-900 dark:text-neutral-50" style={{ fontWeight: 500 }}>
+              Generate Palette
+            </h3>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+              Pick a base color and choose a style
+            </p>
+          </div>
         </div>
 
-        <Tabs defaultValue="theory" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-neutral-100 dark:bg-neutral-800">
-            <TabsTrigger value="theory">
-              <Palette className="w-4 h-4 mr-1" />
-              Color Theory
-            </TabsTrigger>
-            <TabsTrigger value="random">
-              <Sparkles className="w-4 h-4 mr-1" />
-              Random
-            </TabsTrigger>
-            <TabsTrigger value="trending">
-              <TrendingUp className="w-4 h-4 mr-1" />
-              Trending
-            </TabsTrigger>
-          </TabsList>
-
-          {/* Color Theory Tab */}
-          <TabsContent value="theory" className="space-y-4 mt-4">
-            <div className="space-y-2">
-              <Label htmlFor="base-color" className="text-neutral-700 dark:text-neutral-300">
-                Base Color
-              </Label>
-              <div className="flex gap-2">
-                <div className="relative flex-1">
-                  <Input
-                    id="base-color"
-                    type="text"
-                    value={baseColor}
-                    onChange={(e) => setBaseColor(e.target.value)}
-                    placeholder="#3B82F6"
-                    className="pr-12 font-mono"
-                  />
-                  <div
-                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded border border-neutral-300 dark:border-neutral-600"
-                    style={{ backgroundColor: isValidHex(baseColor) ? baseColor : '#cccccc' }}
-                  />
-                </div>
-              </div>
-              {error && (
-                <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-              )}
+        {/* Base Color Input - Prominent */}
+        <div className="space-y-2">
+          <Label htmlFor="gen-base-color" className="text-neutral-700 dark:text-neutral-300">
+            Base Color
+          </Label>
+          <div className="flex gap-3">
+            <div className="relative flex-1">
+              <Input
+                id="gen-base-color"
+                type="text"
+                value={baseColor}
+                onChange={(e) => {
+                  setBaseColor(e.target.value);
+                  setError('');
+                }}
+                placeholder="#3B82F6"
+                className="pr-14 font-mono text-base h-12 bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700"
+              />
+              <div
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg border-2 border-neutral-300 dark:border-neutral-600 shadow-sm transition-transform hover:scale-110 cursor-pointer"
+                style={{ backgroundColor: isValidHex(baseColor) ? baseColor : '#cccccc' }}
+                title="Click to see color"
+              />
             </div>
+            <input
+              type="color"
+              value={isValidHex(baseColor) ? baseColor : '#3B82F6'}
+              onChange={(e) => setBaseColor(e.target.value)}
+              className="w-12 h-12 rounded-lg cursor-pointer border-2 border-neutral-200 dark:border-neutral-700"
+            />
+          </div>
+          {error && (
+            <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+          )}
+        </div>
 
-            <div className="grid grid-cols-2 gap-2">
-              {generationOptions.map((option) => (
-                <Button
-                  key={option.type}
-                  onClick={() => handleGenerate(option.type)}
-                  variant="outline"
-                  className="flex flex-col items-start h-auto p-3 text-left border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                >
-                  <span className="text-sm text-neutral-900 dark:text-neutral-50">
-                    {option.label}
+        {/* Quick Actions - Most Popular */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <Label className="text-neutral-700 dark:text-neutral-300">
+              Quick Generate
+            </Label>
+            <span className="text-xs text-neutral-500 dark:text-neutral-400">
+              Popular choices
+            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {quickActions.map((action) => (
+              <Button
+                key={action.type}
+                onClick={() => handleGenerate(action.type)}
+                variant="outline"
+                className="h-auto p-4 flex flex-col items-start gap-1 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:border-amber-500/30 transition-all duration-200 group"
+              >
+                <div className="flex items-center gap-2 w-full">
+                  <span className="text-xl group-hover:scale-110 transition-transform">
+                    {action.emoji}
                   </span>
-                  <span className="text-xs text-neutral-500 dark:text-neutral-400">
-                    {option.description}
+                  <span className="text-sm text-neutral-900 dark:text-neutral-50" style={{ fontWeight: 500 }}>
+                    {action.label}
+                  </span>
+                </div>
+                <span className="text-xs text-neutral-500 dark:text-neutral-400 text-left">
+                  {action.description}
+                </span>
+              </Button>
+            ))}
+          </div>
+        </div>
+
+        {/* Advanced Options - Collapsible */}
+        <div className="space-y-3">
+          <button
+            onClick={() => setShowAdvanced(!showAdvanced)}
+            className="flex items-center justify-between w-full text-left group"
+          >
+            <Label className="text-neutral-700 dark:text-neutral-300 cursor-pointer">
+              Advanced Options
+            </Label>
+            <ChevronRight 
+              className={`w-4 h-4 text-neutral-400 transition-transform duration-200 ${
+                showAdvanced ? 'rotate-90' : ''
+              }`}
+            />
+          </button>
+          
+          {showAdvanced && (
+            <div className="grid grid-cols-2 gap-2 animate-in slide-in-from-top-2 fade-in duration-300">
+              {advancedActions.map((action) => (
+                <Button
+                  key={action.type}
+                  onClick={() => handleGenerate(action.type)}
+                  variant="outline"
+                  size="sm"
+                  className="h-auto p-3 flex flex-col items-start gap-1 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200 group"
+                >
+                  <div className="flex items-center gap-2 w-full">
+                    <span className="text-base group-hover:scale-110 transition-transform">
+                      {action.emoji}
+                    </span>
+                    <span className="text-xs text-neutral-900 dark:text-neutral-50" style={{ fontWeight: 500 }}>
+                      {action.label}
+                    </span>
+                  </div>
+                  <span className="text-xs text-neutral-500 dark:text-neutral-400 text-left">
+                    {action.description}
                   </span>
                 </Button>
               ))}
             </div>
-          </TabsContent>
+          )}
+        </div>
 
-          {/* Random Tab */}
-          <TabsContent value="random" className="space-y-4 mt-4">
-            <div className="space-y-2">
-              <Label className="text-neutral-700 dark:text-neutral-300">
-                Palette Style
-              </Label>
-              <Select
-                value={randomStyle}
-                onValueChange={(value) => setRandomStyle(value as PaletteStyle)}
-              >
-                <SelectTrigger className="bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {paletteStyles.map((style) => (
-                    <SelectItem key={style} value={style}>
-                      {getPaletteStyleName(style)}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+        {/* Divider */}
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-neutral-200 dark:border-neutral-700" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-white dark:bg-neutral-900 px-2 text-neutral-500 dark:text-neutral-400">
+              Or try these
+            </span>
+          </div>
+        </div>
 
-            <Button
-              onClick={handleRandomGenerate}
-              className="w-full bg-neutral-900 dark:bg-neutral-50 text-neutral-50 dark:text-neutral-900"
-            >
-              <Sparkles className="w-4 h-4 mr-2" />
-              Generate Random Palette
-            </Button>
+        {/* Random Palettes - Visual Buttons */}
+        <div className="space-y-3">
+          <Label className="text-neutral-700 dark:text-neutral-300">
+            Random Inspiration
+          </Label>
+          <div className="grid grid-cols-2 gap-2">
+            {randomStyles.map((item) => {
+              // Generate a preview palette for this style
+              const previewColors = generateRandomPalette(item.style, 4);
+              
+              return (
+                <button
+                  key={item.style}
+                  onClick={() => handleRandomGenerate(item.style)}
+                  className="relative h-20 rounded-lg overflow-hidden border-2 border-neutral-200 dark:border-neutral-700 hover:border-amber-500 transition-all duration-200 group hover:scale-105"
+                >
+                  {/* Color stripes background */}
+                  <div className="absolute inset-0 flex">
+                    {previewColors.map((color, idx) => (
+                      <div
+                        key={idx}
+                        className="flex-1 transition-all duration-300 group-hover:opacity-90"
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </div>
+                  
+                  {/* Overlay with gradient for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/70" />
+                  
+                  {/* Content */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-end p-3">
+                    <span className="text-2xl mb-1 group-hover:scale-110 transition-transform drop-shadow-lg">
+                      {item.emoji}
+                    </span>
+                    <span className="text-white drop-shadow-lg text-sm" style={{ fontWeight: 600 }}>
+                      {item.name}
+                    </span>
+                  </div>
+                  
+                  {/* Shuffle icon */}
+                  <div className="absolute top-2 right-2">
+                    <Shuffle className="w-3.5 h-3.5 text-white/70 group-hover:text-white drop-shadow-lg transition-colors" />
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-            <div className="pt-4 border-t border-neutral-200 dark:border-neutral-700">
-              <Label className="text-neutral-700 dark:text-neutral-300 mb-2 block">
-                <Image className="w-4 h-4 inline mr-1" />
-                Extract from Image
-              </Label>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="hidden"
-              />
-              <Button
-                onClick={() => fileInputRef.current?.click()}
-                variant="outline"
-                className="w-full border-neutral-200 dark:border-neutral-700"
-              >
-                <Image className="w-4 h-4 mr-2" />
-                Upload Image
-              </Button>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-2">
-                Upload an image to extract its dominant colors
-              </p>
-            </div>
-          </TabsContent>
+        {/* Image Upload */}
+        <div className="space-y-2">
+          <Label className="text-neutral-700 dark:text-neutral-300">
+            Extract from Image
+          </Label>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="hidden"
+          />
+          <Button
+            onClick={() => fileInputRef.current?.click()}
+            variant="outline"
+            className="w-full h-12 border-dashed border-2 border-neutral-300 dark:border-neutral-600 hover:border-amber-500/50 hover:bg-amber-500/5 transition-all duration-200"
+          >
+            <Image className="w-4 h-4 mr-2" />
+            Upload Image to Extract Colors
+          </Button>
+          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+            Upload a photo to extract its dominant colors
+          </p>
+        </div>
 
-          {/* Trending Tab */}
-          <TabsContent value="trending" className="space-y-2 mt-4">
+        {/* Trending Palettes - Compact */}
+        <div className="space-y-2">
+          <Label className="text-neutral-700 dark:text-neutral-300">
+            Trending Palettes
+          </Label>
+          <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
             {TRENDING_PALETTES.map((palette) => (
               <button
                 key={palette.name}
-                onClick={() => handleTrendingPalette(palette.colors)}
-                className="w-full p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-left"
+                onClick={() => handleTrendingPalette(palette.colors, palette.name)}
+                className="w-full p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:border-amber-500/30 transition-all duration-200 text-left group"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-neutral-900 dark:text-neutral-50">
+                  <span className="text-sm text-neutral-900 dark:text-neutral-50" style={{ fontWeight: 500 }}>
                     {palette.name}
                   </span>
-                  <span className="text-xs text-neutral-500 dark:text-neutral-400">
-                    {palette.description}
-                  </span>
+                  <ChevronRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-amber-500 transition-colors" />
                 </div>
                 <div className="flex gap-1">
                   {palette.colors.map((color, idx) => (
                     <div
                       key={idx}
-                      className="flex-1 h-8 rounded"
+                      className="flex-1 h-6 rounded transition-transform group-hover:scale-105"
                       style={{ backgroundColor: color }}
+                      title={color}
                     />
                   ))}
                 </div>
               </button>
             ))}
-          </TabsContent>
-        </Tabs>
+          </div>
+        </div>
       </div>
     </Card>
   );
