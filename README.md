@@ -292,7 +292,7 @@ MIT License - feel free to use this project for personal or commercial purposes.
 
 For issues, questions, or suggestions:
 - Open an issue on GitHub
-- Contact: [your-email@example.com]
+- Contact: [austncarsn@gmail.com]
 
 ---
 
