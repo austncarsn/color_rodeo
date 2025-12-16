@@ -19,6 +19,7 @@ import { QuickActionsFAB } from './components/QuickActionsFAB';
 import { ColorTrends } from './components/ColorTrends';
 import { PaletteAnalytics } from './components/PaletteAnalytics';
 import { OnboardingTour } from './components/OnboardingTour';
+import { PaletteOptimizer } from './components/PaletteOptimizer';
 import type { ColorPalette } from './types/palette';
 import { useLocalStorage, useUndoRedo, useKeyboardShortcuts, type KeyboardShortcut } from './hooks';
 import { STORAGE_KEYS } from './constants';
@@ -122,6 +123,12 @@ export default function App() {
         toast.info('Ready to refine! Try different generation modes or evaluate accessibility.');
       }, 500);
     }
+  };
+
+  const handleAddColorFromOptimizer = (color: string) => {
+    const newColors = [...currentPalette, color];
+    setCurrentPalette(newColors);
+    setHasInteracted(true);
   };
 
   const handleImport = (imported: ColorPalette | ColorPalette[]) => {
@@ -598,7 +605,7 @@ export default function App() {
               <div className="space-y-8">
                 
                 {/* Section: Palette Creation */}
-                <div className={workflowStep === 'input' ? 'ring-2 ring-[#F2C46B]/30 rounded-2xl p-4 -m-4' : ''}>
+                <div className={workflowStep === 'input' ? 'ring-2 ring-[#F2C46B]/30 rounded-2xl p-4' : ''}>
                   <div className="mb-4">
                     <h3 className="text-neutral-900 dark:text-[#F5F5F7] mb-1" style={{ fontWeight: 500 }}>
                       Your Palette
@@ -620,7 +627,7 @@ export default function App() {
                 </div>
                 
                 {/* Section: Generation Modes */}
-                <div className={workflowStep === 'generate' ? 'ring-2 ring-[#F2C46B]/30 rounded-2xl p-4 -m-4' : ''}>
+                <div className={workflowStep === 'generate' ? 'ring-2 ring-[#F2C46B]/30 rounded-2xl p-4' : ''}>
                   <div className="mb-4">
                     <h3 className="text-neutral-900 dark:text-[#F5F5F7] mb-1" style={{ fontWeight: 500 }}>
                       Generation Modes
@@ -690,8 +697,27 @@ export default function App() {
                   </div>
                 )}
                 
+                {/* Section: Palette Optimizer */}
+                <div className={workflowStep === 'evaluate' ? 'ring-2 ring-[#F2C46B]/30 rounded-2xl p-4' : ''}>
+                  <div className="mb-4">
+                    <h3 className="text-neutral-900 dark:text-[#F5F5F7] mb-1" style={{ fontWeight: 500 }}>
+                      AI Color Optimizer
+                      {workflowStep === 'evaluate' && (
+                        <span className="ml-2 text-xs text-[#D4A855] dark:text-[#F2C46B]">← Improve here</span>
+                      )}
+                    </h3>
+                    <p className="text-xs text-neutral-500 dark:text-[#8C909A]">
+                      Intelligent recommendations to maximize accessibility
+                    </p>
+                  </div>
+                  <PaletteOptimizer 
+                    colors={currentPalette} 
+                    onAddColor={handleAddColorFromOptimizer}
+                  />
+                </div>
+                
                 {/* Section: Accessibility Analysis */}
-                <div className={workflowStep === 'evaluate' ? 'ring-2 ring-[#F2C46B]/30 rounded-2xl p-4 -m-4' : ''}>
+                <div className={workflowStep === 'evaluate' ? 'ring-2 ring-[#F2C46B]/30 rounded-2xl p-4' : ''}>
                   <div className="mb-4">
                     <h3 className="text-neutral-900 dark:text-[#F5F5F7] mb-1" style={{ fontWeight: 500 }}>
                       Accessibility
@@ -724,8 +750,8 @@ export default function App() {
                 </div>
                 
                 {/* Section: Contrast Matrix (Collapsible) */}
-                <div className={workflowStep === 'evaluate' ? 'ring-2 ring-[#F2C46B]/30 rounded-2xl p-4 -m-4' : ''}>
-                  <Collapsible defaultOpen={workflowStep === 'evaluate'}>
+                <div className={workflowStep === 'evaluate' ? 'ring-2 ring-[#F2C46B]/30 rounded-2xl p-4' : ''}>
+                  <Collapsible defaultOpen={true}>
                     <CollapsibleTrigger className="flex items-center justify-between w-full px-4 py-3 bg-neutral-100 dark:bg-[#1E1F23] rounded-xl text-sm text-neutral-700 dark:text-[#C1C4CF] hover:bg-neutral-200 dark:hover:bg-[#23252B] transition-all duration-300 group" style={{ fontWeight: 500 }}>
                       <div className="flex items-center gap-2">
                         <span>Contrast Matrix</span>

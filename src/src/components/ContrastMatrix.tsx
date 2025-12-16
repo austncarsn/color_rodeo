@@ -75,15 +75,54 @@ function getWCAGLevel(ratio: number): {
 export function ContrastMatrix({ colors }: ContrastMatrixProps) {
   if (colors.length === 0) {
     return (
-      <div className="bg-white dark:bg-neutral-900 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-800">
+      <div className="bg-white dark:bg-[#18191D] border border-neutral-200 dark:border-[#292B33] rounded-xl p-6 sm:p-8">
         <div className="flex items-center gap-2 mb-4">
-          <Grid3x3 className="w-5 h-5 text-neutral-900 dark:text-neutral-50" />
-          <h2 className="text-neutral-900 dark:text-neutral-50">Contrast Matrix</h2>
+          <Grid3x3 className="w-5 h-5 text-neutral-600 dark:text-[#8C909A]" />
+          <h3 className="text-neutral-900 dark:text-[#F5F5F7]" style={{ fontWeight: 500 }}>Contrast Matrix</h3>
         </div>
-        <div className="text-center py-8 text-neutral-500 dark:text-neutral-400">
-          <Grid3x3 className="w-12 h-12 mx-auto mb-3 opacity-30" />
-          <p>Add colors to see contrast matrix</p>
-          <p className="text-sm mt-1">Shows WCAG compliance for all color pairs</p>
+        <div className="text-center py-10 sm:py-12">
+          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-[#23252B] dark:to-[#292B33] rounded-2xl flex items-center justify-center">
+            <Grid3x3 className="w-8 h-8 text-neutral-400 dark:text-[#8C909A]" />
+          </div>
+          <p className="text-sm text-neutral-900 dark:text-[#C1C4CF] mb-2" style={{ fontWeight: 500 }}>
+            No Colors Yet
+          </p>
+          <p className="text-xs text-neutral-600 dark:text-[#8C909A] mb-4 max-w-xs mx-auto leading-relaxed">
+            Add colors to your palette above to see contrast ratios and WCAG compliance for all color combinations
+          </p>
+          
+          {/* Visual guide */}
+          <div className="mt-6 p-4 bg-blue-500/5 dark:bg-blue-500/10 border border-blue-500/20 rounded-xl max-w-sm mx-auto">
+            <p className="text-xs text-blue-600 dark:text-blue-400 mb-3" style={{ fontWeight: 500 }}>
+              💡 How to add colors:
+            </p>
+            <ol className="text-xs text-blue-600/80 dark:text-blue-400/80 text-left space-y-1.5 pl-4">
+              <li>1. Scroll to "Create Palette" section above</li>
+              <li>2. Enter a hex code (e.g., #FF0000)</li>
+              <li>3. Click "Add Color" button</li>
+              <li>4. Add at least 2 colors to see the matrix</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (colors.length === 1) {
+    return (
+      <div className="bg-white dark:bg-[#18191D] border border-neutral-200 dark:border-[#292B33] rounded-xl p-6 sm:p-8">
+        <div className="flex items-center gap-2 mb-4">
+          <Grid3x3 className="w-5 h-5 text-neutral-600 dark:text-[#8C909A]" />
+          <h3 className="text-neutral-900 dark:text-[#F5F5F7]" style={{ fontWeight: 500 }}>Contrast Matrix</h3>
+        </div>
+        <div className="text-center py-10">
+          <div className="w-12 h-12 mx-auto mb-3 rounded-xl border-2 border-neutral-200 dark:border-[#292B33]" style={{ backgroundColor: colors[0] }} />
+          <p className="text-sm text-neutral-900 dark:text-[#C1C4CF] mb-2" style={{ fontWeight: 500 }}>
+            Add One More Color
+          </p>
+          <p className="text-xs text-neutral-600 dark:text-[#8C909A] max-w-xs mx-auto leading-relaxed">
+            The contrast matrix needs at least 2 colors to show contrast ratios between color pairs
+          </p>
         </div>
       </div>
     );

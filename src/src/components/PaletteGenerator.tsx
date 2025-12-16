@@ -229,18 +229,19 @@ export function PaletteGenerator({ onGenerate }: PaletteGeneratorProps) {
                 placeholder="#3B82F6"
                 className="pr-14 font-mono text-base h-12 bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700"
               />
-              <div
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg border-2 border-neutral-300 dark:border-neutral-600 shadow-sm transition-transform hover:scale-110 cursor-pointer"
-                style={{ backgroundColor: isValidHex(baseColor) ? baseColor : '#cccccc' }}
-                title="Click to see color"
+            </div>
+            <div className="relative w-12 h-12">
+              <input
+                type="color"
+                value={isValidHex(baseColor) ? baseColor : '#3B82F6'}
+                onChange={(e) => setBaseColor(e.target.value)}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              />
+              <div 
+                className="w-full h-full rounded-lg border-2 border-neutral-200 dark:border-neutral-700 pointer-events-none overflow-hidden"
+                style={{ backgroundColor: isValidHex(baseColor) ? baseColor : '#3B82F6' }}
               />
             </div>
-            <input
-              type="color"
-              value={isValidHex(baseColor) ? baseColor : '#3B82F6'}
-              onChange={(e) => setBaseColor(e.target.value)}
-              className="w-12 h-12 rounded-lg cursor-pointer border-2 border-neutral-200 dark:border-neutral-700"
-            />
           </div>
           {error && (
             <p className="text-sm text-red-600 dark:text-red-400">{error}</p>

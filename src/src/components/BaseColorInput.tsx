@@ -77,41 +77,6 @@ export function BaseColorInput({ onGenerate }: BaseColorInputProps) {
             : 'border-neutral-200 dark:border-[#292B33]'
         }`}>
           
-          {/* Large Color Preview */}
-          {isValidHex(baseColor) && (
-            <div className="relative h-32 sm:h-40 rounded-t-2xl overflow-hidden">
-              <div 
-                className="absolute inset-0 transition-all duration-300"
-                style={{ backgroundColor: baseColor }}
-              />
-              {/* Gradient overlay for depth */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10" />
-              
-              {/* Color value display on preview */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div 
-                  className="px-6 py-3 rounded-xl backdrop-blur-sm transition-all duration-300"
-                  style={{ 
-                    backgroundColor: `${baseColor}20`,
-                    border: `2px solid ${baseColor}`,
-                    color: getTextColor(baseColor)
-                  }}
-                >
-                  <span className="text-2xl sm:text-3xl font-mono tracking-wider" style={{ fontWeight: 600 }}>
-                    {baseColor.toUpperCase()}
-                  </span>
-                </div>
-              </div>
-
-              {/* Palette icon */}
-              <div className="absolute top-4 left-4">
-                <div className="w-10 h-10 rounded-xl bg-black/20 dark:bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                  <Palette className="w-5 h-5" style={{ color: getTextColor(baseColor) }} />
-                </div>
-              </div>
-            </div>
-          )}
-          
           {/* Input Section */}
           <div className="p-6 sm:p-8">
             <div className="flex flex-col sm:flex-row gap-3">
@@ -129,17 +94,27 @@ export function BaseColorInput({ onGenerate }: BaseColorInputProps) {
                   className="h-14 sm:h-16 px-6 text-center text-lg sm:text-xl tracking-widest bg-neutral-50 dark:bg-[#18191D] border-neutral-200 dark:border-[#292B33] focus:border-[#F2C46B] dark:focus:border-[#F2C46B] text-neutral-900 dark:text-[#F5F5F7] placeholder:text-neutral-400 dark:placeholder:text-[#8C909A] rounded-xl font-mono"
                   style={{ fontWeight: 600 }}
                 />
-                {/* Color picker input (native) */}
+                {/* Color picker input (native) - hidden behind icon */}
                 <input
                   type="color"
                   value={isValidHex(baseColor) ? baseColor : '#3B82F6'}
                   onChange={(e) => setBaseColor(e.target.value.toUpperCase())}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg cursor-pointer opacity-0 hover:opacity-100 transition-opacity"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg cursor-pointer"
+                  style={{ opacity: 0 }}
                   title="Pick a color"
                 />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-neutral-200 dark:bg-[#292B33] flex items-center justify-center pointer-events-none">
-                  <Pipette className="w-4 h-4 text-neutral-500 dark:text-[#8C909A]" />
-                </div>
+                {/* Color preview icon */}
+                {isValidHex(baseColor) && (
+                  <div 
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg border-2 border-neutral-300 dark:border-[#292B33] pointer-events-none"
+                    style={{ backgroundColor: baseColor }}
+                  />
+                )}
+                {!isValidHex(baseColor) && (
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-neutral-200 dark:bg-[#292B33] flex items-center justify-center pointer-events-none">
+                    <Pipette className="w-4 h-4 text-neutral-500 dark:text-[#8C909A]" />
+                  </div>
+                )}
               </div>
 
               {/* Random Color Button */}

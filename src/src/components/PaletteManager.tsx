@@ -47,9 +47,8 @@ export function PaletteManager({
   useEffect(() => {
     if (loadedColors.length > 0) {
       loadColors(loadedColors);
-      onColorsChange([]);
     }
-  }, [loadedColors, onColorsChange, loadColors]);
+  }, [loadedColors, loadColors]);
 
   const handleAddColor = () => {
     addColors(inputValue);
