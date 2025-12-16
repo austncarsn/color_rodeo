@@ -424,8 +424,60 @@ export default function App() {
           {/* WORKFLOW TABS - Step Navigation            */}
           {/* ============================================ */}
           <div className="sticky top-0 z-30 bg-white dark:bg-[#18191D] border-b border-neutral-200 dark:border-[#292B33] shadow-sm">
-            <div className="px-4 sm:px-6 md:px-8 lg:px-12 py-4">
-              <div className="flex items-center justify-center gap-2 sm:gap-4 max-w-3xl mx-auto">
+            <div className="px-2 sm:px-4 md:px-8 lg:px-12 py-3 sm:py-4">
+              {/* Mobile: Stacked compact view */}
+              <div className="flex sm:hidden items-center justify-between gap-1 max-w-full mx-auto overflow-x-auto">
+                <button
+                  onClick={() => navigateToStep('input')}
+                  className={`flex-1 min-w-[70px] flex flex-col items-center gap-1 px-2 py-2 rounded-lg transition-all duration-300 ${
+                    workflowStep === 'input'
+                      ? 'bg-[#F2C46B] text-[#121212] shadow-sm'
+                      : 'bg-neutral-100 dark:bg-[#1E1F23] text-neutral-600 dark:text-[#8C909A]'
+                  }`}
+                >
+                  <Palette className="w-4 h-4" />
+                  <span className="text-[10px]" style={{ fontWeight: 500 }}>Input</span>
+                </button>
+                
+                <button
+                  onClick={() => navigateToStep('generate')}
+                  className={`flex-1 min-w-[70px] flex flex-col items-center gap-1 px-2 py-2 rounded-lg transition-all duration-300 ${
+                    workflowStep === 'generate'
+                      ? 'bg-[#F2C46B] text-[#121212] shadow-sm'
+                      : 'bg-neutral-100 dark:bg-[#1E1F23] text-neutral-600 dark:text-[#8C909A]'
+                  }`}
+                >
+                  <Wand2 className="w-4 h-4" />
+                  <span className="text-[10px]" style={{ fontWeight: 500 }}>Generate</span>
+                </button>
+                
+                <button
+                  onClick={() => navigateToStep('evaluate')}
+                  className={`flex-1 min-w-[70px] flex flex-col items-center gap-1 px-2 py-2 rounded-lg transition-all duration-300 ${
+                    workflowStep === 'evaluate'
+                      ? 'bg-[#F2C46B] text-[#121212] shadow-sm'
+                      : 'bg-neutral-100 dark:bg-[#1E1F23] text-neutral-600 dark:text-[#8C909A]'
+                  }`}
+                >
+                  <Eye className="w-4 h-4" />
+                  <span className="text-[10px]" style={{ fontWeight: 500 }}>Evaluate</span>
+                </button>
+                
+                <button
+                  onClick={() => navigateToStep('export')}
+                  className={`flex-1 min-w-[70px] flex flex-col items-center gap-1 px-2 py-2 rounded-lg transition-all duration-300 ${
+                    workflowStep === 'export'
+                      ? 'bg-[#F2C46B] text-[#121212] shadow-sm'
+                      : 'bg-neutral-100 dark:bg-[#1E1F23] text-neutral-600 dark:text-[#8C909A]'
+                  }`}
+                >
+                  <Download className="w-4 h-4" />
+                  <span className="text-[10px]" style={{ fontWeight: 500 }}>Export</span>
+                </button>
+              </div>
+
+              {/* Desktop: Horizontal with separators */}
+              <div className="hidden sm:flex items-center justify-center gap-2 sm:gap-4 max-w-3xl mx-auto">
                 <button
                   onClick={() => navigateToStep('input')}
                   className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-lg transition-all duration-300 ${

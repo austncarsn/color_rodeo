@@ -115,7 +115,7 @@ export function QuickActionsFAB({
   ];
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2 sm:gap-3">
       {/* Action buttons - appear when open */}
       {isOpen && (
         <div className="flex flex-col gap-2 animate-in fade-in slide-in-from-bottom-4 duration-300">
@@ -124,14 +124,14 @@ export function QuickActionsFAB({
               key={idx}
               onClick={action.onClick}
               disabled={action.disabled}
-              className={`group flex items-center gap-3 px-4 py-3 rounded-xl ${action.color} text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 animate-in fade-in slide-in-from-right-2 duration-300`}
+              className={`group flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl ${action.color} text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 animate-in fade-in slide-in-from-right-2 duration-300 min-w-[140px] sm:min-w-auto justify-between`}
               style={{ animationDelay: `${idx * 50}ms` }}
               title={action.label}
             >
-              <span className="text-sm whitespace-nowrap" style={{ fontWeight: 500 }}>
+              <span className="text-xs sm:text-sm whitespace-nowrap" style={{ fontWeight: 500 }}>
                 {action.label}
               </span>
-              <action.icon className="w-5 h-5" />
+              <action.icon className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
             </button>
           ))}
         </div>
@@ -140,15 +140,16 @@ export function QuickActionsFAB({
       {/* Main FAB button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-14 h-14 rounded-full bg-[#F2C46B] hover:bg-[#D4A855] text-[#121212] shadow-[0_4px_16px_rgba(212,168,85,0.4)] hover:shadow-[0_6px_24px_rgba(212,168,85,0.6)] transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center relative ${
+        className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#F2C46B] hover:bg-[#D4A855] text-[#121212] shadow-[0_4px_16px_rgba(212,168,85,0.4)] hover:shadow-[0_6px_24px_rgba(212,168,85,0.6)] transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center relative ${
           isOpen ? 'rotate-45' : 'rotate-0'
         }`}
         title={isOpen ? 'Close quick actions' : 'Quick actions'}
+        aria-label={isOpen ? 'Close quick actions' : 'Open quick actions'}
       >
         {isOpen ? (
-          <X className="w-6 h-6 transition-transform duration-300" />
+          <X className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300" />
         ) : (
-          <Sparkles className="w-6 h-6 transition-transform duration-300" />
+          <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300" />
         )}
       </button>
     </div>
