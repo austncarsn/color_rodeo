@@ -61,8 +61,8 @@ export function BaseColorInput({ onGenerate }: BaseColorInputProps) {
     <div className="space-y-6">
       {/* Step label */}
       <div className="flex items-center justify-center gap-2">
-        <div className="px-4 py-2 rounded-full bg-[#F2C46B]/10 dark:bg-[#F2C46B]/10 border border-[#F2C46B]/20 dark:border-[#F2C46B]/20">
-          <span className="text-xs text-[#D4A855] dark:text-[#F2C46B] tracking-wide" style={{ fontWeight: 500 }}>
+        <div className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#F2C46B]/10 dark:bg-[#F2C46B]/10 border border-[#F2C46B]/20 dark:border-[#F2C46B]/20">
+          <span className="text-[10px] sm:text-xs text-[#D4A855] dark:text-[#F2C46B] tracking-wide" style={{ fontWeight: 500 }}>
             Step 1 · Choose your base color
           </span>
         </div>

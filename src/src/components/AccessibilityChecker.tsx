@@ -126,7 +126,7 @@ export function AccessibilityChecker({ colors }: AccessibilityCheckerProps) {
               </Select>
 
               {colorblindMode !== 'none' && (
-                <div className="grid grid-cols-5 gap-2 p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700">
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700">
                   {simulatedColors.map((color, idx) => (
                     <div key={idx} className="space-y-1">
                       <div

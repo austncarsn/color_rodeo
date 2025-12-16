@@ -233,7 +233,7 @@ export function ContrastMatrix({ colors }: ContrastMatrixProps) {
         </div>
         
         {/* Quick stats */}
-        <div className="mt-3 grid grid-cols-4 gap-1.5 sm:gap-2 text-center">
+        <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 text-center">
           <div className="p-1.5 sm:p-2 bg-white dark:bg-green-950/30 rounded-lg border border-green-200 dark:border-green-800/50">
             <div className="text-base sm:text-lg text-green-600 dark:text-green-400" style={{ fontWeight: 600 }}>
               {aaaCount}

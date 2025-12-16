@@ -103,7 +103,7 @@ export function ColorScales({ colors, onGenerateColors }: ColorScalesProps) {
             {/* Color Selection */}
             <div className="space-y-2">
               <Label className="text-neutral-700 dark:text-neutral-300">Base Color</Label>
-              <div className="grid grid-cols-5 gap-2">
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                 {colors.slice(0, 10).map((color, idx) => (
                   <button
                     key={idx}

@@ -175,7 +175,7 @@ export function ColorHarmonyVisualizer({ colors, onGenerateColors }: ColorHarmon
         {hasColors && (
           <div className="space-y-2">
             <Label className="text-neutral-700 dark:text-neutral-300">Base Color</Label>
-            <div className="grid grid-cols-6 gap-2">
+            <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
               {colors.slice(0, 12).map((color, idx) => (
                 <button
                   key={idx}
