@@ -304,39 +304,39 @@ export default function App() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.03)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.2)_100%)]" />
             
             {/* Content */}
-            <div className="relative px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12 py-8 sm:py-10 md:py-12">
+            <div className="relative px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12 py-8 sm:py-10 md:py-12 lg:py-16">
               <div className="max-w-4xl mx-auto text-center">
                 
                 {/* Status pill with saffron accent */}
-                <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 mb-4 sm:mb-6 rounded-full bg-white dark:bg-[#1E1F23] border border-neutral-200 dark:border-[#292B33] shadow-[inset_0_1px_0_rgba(0,0,0,0.02)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] animate-in fade-in slide-in-from-top-2 duration-700">
+                <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 mb-6 sm:mb-8 rounded-full bg-white dark:bg-[#1E1F23] border border-neutral-200 dark:border-[#292B33] shadow-[inset_0_1px_0_rgba(0,0,0,0.02)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] animate-in fade-in slide-in-from-top-2 duration-700">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#D4A855] dark:bg-[#F2C46B] shadow-[0_0_6px_rgba(212,168,85,0.6)] dark:shadow-[0_0_6px_rgba(242,196,107,0.4)]" />
                   <span className="text-[10px] sm:text-xs tracking-wider text-neutral-600 dark:text-[#C1C4CF] uppercase">Professional Color Tools</span>
                 </div>
                 
                 {/* Logo with refined gradient */}
-                <div className="mb-3 sm:mb-4 animate-in fade-in slide-in-from-top-4 duration-700 delay-100">
+                <div className="mb-6 sm:mb-8 md:mb-10 animate-in fade-in slide-in-from-top-4 duration-700 delay-100">
                   <h1 
-                    className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-transparent bg-clip-text mb-2 sm:mb-3 leading-[0.9]" 
+                    className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-transparent bg-clip-text mb-0 leading-[0.9]" 
                     style={{ 
                       fontFamily: 'Bebas Neue, sans-serif', 
                       fontWeight: 400,
                       backgroundImage: 'linear-gradient(90deg, #EF4444, #F97316, #F59E0B, #84CC16, #10B981, #06B6D4, #3B82F6, #6366F1, #8B5CF6, #EC4899, #EF4444)',
                       backgroundSize: '200% auto',
                       animation: 'gradient-shift 8s linear infinite',
+                      transform: 'scaleY(2)',
                     }}
                   >
                     Color Rodeo
                   </h1>
-                  <div className="h-px w-16 sm:w-24 mx-auto bg-gradient-to-r from-transparent via-[#D4A855]/40 dark:via-[#F2C46B]/30 to-transparent rounded-full mb-3 sm:mb-4" />
                 </div>
                 
                 {/* Refined tagline */}
-                <p className="text-neutral-600 dark:text-[#C1C4CF] max-w-xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed mb-6 sm:mb-8 tracking-wide animate-in fade-in slide-in-from-top-6 duration-700 delay-200 px-4" style={{ fontWeight: 400 }}>
+                <p className="text-neutral-600 dark:text-[#C1C4CF] max-w-xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed mb-8 sm:mb-10 md:mb-12 tracking-wide animate-in fade-in slide-in-from-top-6 duration-700 delay-200 px-4" style={{ fontWeight: 400 }}>
                   Professional color tools for designers and developers
                 </p>
                 
                 {/* Compact Utility Bar */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mb-6 sm:mb-8 animate-in fade-in slide-in-from-top-8 duration-700 delay-300 px-3">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10 md:mb-12 animate-in fade-in slide-in-from-top-8 duration-700 delay-300 px-3">
                   {/* Main action group - subtle container */}
                   <div className="w-full sm:w-auto inline-flex items-center gap-1.5 sm:gap-2 p-1.5 rounded-xl bg-white dark:bg-[#1E1F23] border border-neutral-200 dark:border-[#292B33] shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_4px_12px_rgba(0,0,0,0.08)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.02),0_4px_12px_rgba(0,0,0,0.3)]">
                     {/* Undo */}
