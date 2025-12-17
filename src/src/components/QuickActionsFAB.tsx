@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Save, Copy, Sparkles, X, Share2 } from 'lucide-react';
 import { toast } from 'sonner@2.0.3';
+import { copyToClipboard } from '../lib/clipboard';
 
 interface QuickActionsFABProps {
   colors: string[];
@@ -24,11 +25,11 @@ export function QuickActionsFAB({
     }
 
     const colorString = colors.join(', ');
-    try {
-      await navigator.clipboard.writeText(colorString);
+    const success = await copyToClipboard(colorString);
+    if (success) {
       toast.success(`Copied ${colors.length} color${colors.length > 1 ? 's' : ''} to clipboard`);
       setIsOpen(false);
-    } catch (err) {
+    } else {
       toast.error('Failed to copy colors');
     }
   };
@@ -71,14 +72,22 @@ export function QuickActionsFAB({
       } catch (err) {
         // User cancelled or error occurred
         if ((err as Error).name !== 'AbortError') {
-          await navigator.clipboard.writeText(url);
-          toast.success('Link copied to clipboard');
+          const success = await copyToClipboard(url);
+          if (success) {
+            toast.success('Link copied to clipboard');
+          } else {
+            toast.error('Failed to copy link');
+          }
         }
         setIsOpen(false);
       }
     } else {
-      await navigator.clipboard.writeText(url);
-      toast.success('Shareable link copied to clipboard');
+      const success = await copyToClipboard(url);
+      if (success) {
+        toast.success('Shareable link copied to clipboard');
+      } else {
+        toast.error('Failed to copy link');
+      }
       setIsOpen(false);
     }
   };

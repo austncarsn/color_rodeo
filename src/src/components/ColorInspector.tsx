@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { X, Copy, Check, Eye } from 'lucide-react';
 import { hexToRgb, hexToHsl, isLightColor } from '../lib/colorUtils';
+import { copyToClipboard as copyTextToClipboard } from '../lib/clipboard';
 import { toast } from 'sonner';
 
 interface ColorInspectorProps {
@@ -19,12 +20,12 @@ export function ColorInspector({ color, onClose }: ColorInspectorProps) {
   const [copyFeedback, setCopyFeedback] = useState<string | null>(null);
 
   const copyToClipboard = async (text: string, format: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
+    const success = await copyTextToClipboard(text);
+    if (success) {
       setCopyFeedback(format);
       setTimeout(() => setCopyFeedback(null), 2000);
       toast.success(`${format} copied!`);
-    } catch (err) {
+    } else {
       toast.error('Failed to copy');
     }
   };

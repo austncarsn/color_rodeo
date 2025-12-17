@@ -2,6 +2,7 @@ import { Grid3x3, Check, X, AlertTriangle, Copy, Star, ChevronDown, ChevronUp } 
 import { Button } from '../../components/ui/button';
 import { toast } from 'sonner@2.0.3';
 import { useState } from 'react';
+import { copyToClipboard } from '../lib/clipboard';
 import {
   Tooltip,
   TooltipContent,
@@ -176,7 +177,7 @@ export function ContrastMatrix({ colors }: ContrastMatrixProps) {
       });
     });
 
-    navigator.clipboard.writeText(matrixText);
+    copyToClipboard(matrixText);
     toast.success('Contrast matrix copied to clipboard');
   };
 
@@ -293,7 +294,7 @@ export function ContrastMatrix({ colors }: ContrastMatrixProps) {
                   key={idx}
                   className="relative p-3 sm:p-4 rounded-xl border-2 border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-white dark:from-green-900/10 dark:to-neutral-900 hover:shadow-md active:scale-[0.98] transition-all cursor-pointer group touch-manipulation"
                   onClick={() => {
-                    navigator.clipboard.writeText(`Foreground: ${pair.fg}\nBackground: ${pair.bg}\nRatio: ${pair.ratio.toFixed(2)}:1`);
+                    copyToClipboard(`Foreground: ${pair.fg}\nBackground: ${pair.bg}\nRatio: ${pair.ratio.toFixed(2)}:1`);
                     toast.success('Color pair copied to clipboard');
                   }}
                 >

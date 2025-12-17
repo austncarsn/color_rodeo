@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
-import { copyToClipboard } from '../lib/clipboard';
+import { copyToClipboard as copyText } from '../lib/clipboard';
 import { UI_TEXT } from '../constants';
+import { toast } from 'sonner@2.0.3';
 
 /**
  * Custom hook for copying text to clipboard with feedback state
@@ -11,7 +12,7 @@ export function useCopyToClipboard() {
 
   const copyWithFeedback = useCallback(
     async (text: string, id?: string): Promise<boolean> => {
-      const success = await copyToClipboard(text);
+      const success = await copyText(text);
       
       if (success && id) {
         setCopiedId(id);
@@ -23,8 +24,24 @@ export function useCopyToClipboard() {
     []
   );
 
+  const copyToClipboard = useCallback(
+    async (text: string, successMessage?: string): Promise<boolean> => {
+      const success = await copyText(text);
+      
+      if (success && successMessage) {
+        toast.success(successMessage);
+      } else if (!success) {
+        toast.error('Failed to copy to clipboard');
+      }
+      
+      return success;
+    },
+    []
+  );
+
   return {
     copyWithFeedback,
+    copyToClipboard,
     copiedId,
     isCopied: (id: string) => copiedId === id,
   };
